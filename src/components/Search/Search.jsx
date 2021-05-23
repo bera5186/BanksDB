@@ -17,29 +17,21 @@ const Search = () => {
 
   const [val, setVal] = useState("");
 
-  const autocompleteUrl = `${API_URL}branches/autocomplete?format=json&limit=10&offset=1`;
+  const autocompleteUrl = `${API_URL}branches/autocomplete?format=json&limit=25&offset=1`;
 
   const fetchData = async () => {
     let response = await fetch(`${autocompleteUrl}&q=${val}`);
 
     if (response.status === 200) {
       const data = await response.json();
-
-      if (data.result.length === 0) {
-        dispatch({
-          type: "SET_RESULT",
-          payload: { results: [{ branch: "No Results Found" }] },
-        });
-      } else {
-        dispatch({ type: "SET_RESULT", payload: { results: data.result } });
-      }
+      dispatch({ type: "SET_RESULT", payload: { results: data.result } });
     }
   };
 
   const fetchDataDebounced = AwesomeDebouncePromise(fetchData, 200);
 
   return (
-    <div className="flex justify-between items-center mt-4">
+    <div className="flex justify-between items-center mt-4 z-40 mb-10">
       <div class="relative w-1/5 border-none">
         <select class="focus:outline-none appearance-none border-none inline-block py-3 pl-3 pr-8 rounded leading-tight w-full">
           <option className="pt-6">State</option>
@@ -65,13 +57,13 @@ const Search = () => {
               payload: { search: e.target.value },
             });
             setVal(e.target.value);
-            if (val.length > 2) {
+            if (val.length > 1) {
               fetchDataDebounced();
             }
           }}
         />
       </form>
-      {searchResults.length === 0 ? (
+      {/* {searchResults.length === 0 ? (
         ""
       ) : (
         <ul>
@@ -79,7 +71,7 @@ const Search = () => {
             return <li>{result.branch}</li>;
           })}
         </ul>
-      )}
+      )} */}
     </div>
   );
 };

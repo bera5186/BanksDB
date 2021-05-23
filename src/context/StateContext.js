@@ -8,6 +8,7 @@ export const StateContext = createContext();
 const initialState = {
   search: "",
   searchResults: [],
+  noResult: false
 };
 
 export const StateProvider = (props) => {
