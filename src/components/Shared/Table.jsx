@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
-import { useTable, usePagination } from "react-table";
+import React, { useContext, useEffect } from "react";
+import { useTable, usePagination, useGlobalFilter } from "react-table";
+import { StateContext } from "../../context/StateContext";
 
 export const Table = ({
+
   columns,
   data,
   fetchData,
   pageCount,
   paginated = true,
+  search = false
 }) => {
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -20,7 +24,8 @@ export const Table = ({
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, gloBalFilter },
+    setGlobalFilter
   } = useTable(
     {
       columns,
@@ -30,7 +35,8 @@ export const Table = ({
       autoResetSortBy: false,
       pageCount,
     },
-    usePagination
+    useGlobalFilter,
+    usePagination,
   );
 
   useEffect(() => {
@@ -40,6 +46,10 @@ export const Table = ({
 
   return (
     <>
+      {
+        search ? (      <GloBalFilter filter={gloBalFilter} setFilter={setGlobalFilter} />
+          ) : ""
+      }
       <table
         {...getTableProps()}
         className="min-w-full divide-y divide-gray-200"
@@ -167,3 +177,13 @@ export const Table = ({
     </>
   );
 };
+
+
+function GloBalFilter({ filter, setFilter }){
+  return(
+    <span>
+      Search: {' '}
+      <input className="text-black text-lg h-10 border-2" onChange={(e) => setFilter(e.target.value)} />
+    </span>
+  )
+}

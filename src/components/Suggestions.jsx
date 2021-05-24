@@ -11,7 +11,7 @@ const Suggestions = () => {
           {state.noResult ? (
             <li>No Result Found</li>
           ) : (
-            state.searchResults.map((result) => {
+            state.autoCompleteResults.map((result) => {
               return (
                 <>
                   <li className="mb-2 mt-2 flex justify-between flex-col">

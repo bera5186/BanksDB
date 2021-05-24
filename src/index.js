@@ -4,12 +4,15 @@ import "./index.css";
 import "./assets/tailwind.output.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { StateProvider } from "../src/context/StateContext";
 ReactDOM.render(
   <React.StrictMode>
     <StateProvider>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </StateProvider>
   </React.StrictMode>,
   document.getElementById("root")

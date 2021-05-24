@@ -7,8 +7,14 @@ export const StateContext = createContext();
 
 const initialState = {
   search: "",
+  autoCompleteResults: [],
+  noResult: false,
+  city: "DELHI",
   searchResults: [],
-  noResult: false
+  showSuggestions: false,
+  bankId: 1,
+  n_results: null,
+  isLoading: false,
 };
 
 export const StateProvider = (props) => {

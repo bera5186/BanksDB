@@ -5,14 +5,31 @@ export const StateReducer = (draft, action) => {
       return;
     }
     case "SET_RESULT": {
-        if(action.payload.results.length === 0) {
-          draft.searchResults = []
-          draft.noResult = true
-          return;
-        }
-        draft.searchResults = action.payload.results
-        draft.noResult = false
-        return;
+      draft.autoCompleteResults = action.payload.results;
+      draft.searchResults = [];
+      return;
+    }
+    case "SET_CITY": {
+      draft.city = action.payload.city;
+      return;
+    }
+    case "SET_SEARCH_RESULT": {
+      draft.searchResults = action.payload.results;
+      draft.autoCompleteResults = []
+      draft.n_results= action.payload.n_results;
+      return;
+    }
+    case "SHOW_SUGGESTIONS": {
+      draft.showSuggestions = action.payload.showSuggestions;
+      return;
+    }
+    case "SET_BANK": {
+      draft.bankId = action.payload.bank_id
+      return;
+    }
+    case "SET_LOADING": {
+      draft.isLoading = action.payload.isLoading
+      return;
     }
     default:
       return;
